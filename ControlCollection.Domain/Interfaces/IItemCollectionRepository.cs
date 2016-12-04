@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ControlCollection.Domain.Interfaces
 {
+    //Interface com a declaração dos métodos para o repositório
     public interface IItemCollectionRepository
     {
         List<ItemCollection> GetAll();

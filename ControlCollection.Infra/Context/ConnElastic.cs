@@ -7,6 +7,7 @@ namespace ControlCollection.Infra
 {
     public class ConnElastic
     {
+        //Método estático que cria a conexão com o elasticsearch
         public static ElasticClient EsClient()
         {
             ConnectionSettings ConnSettings;

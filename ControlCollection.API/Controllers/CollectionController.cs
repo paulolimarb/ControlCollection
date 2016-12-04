@@ -9,17 +9,21 @@ using System.Web.Http.Cors;
 
 namespace ControlCollection.API.Controllers
 {
+    //Habilitando Cors e Personalização de rotas
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("api")]
     public class CollectionController : ApiController
     {
         private readonly IItemCollectionRepository _ic;
-        
+
+        //Implementação da injeção de dependência
         public CollectionController(IItemCollectionRepository ic)
         {
             this._ic = ic;
-        }        
+        }
 
+        //Método de consulta a todos os dados.
+        [HttpGet]
         [Route("items")]
         public HttpResponseMessage GetAllItems()
         {
@@ -28,6 +32,8 @@ namespace ControlCollection.API.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
+        //Método de consulta por palavra-chave.
+        [HttpGet]
         [Route("items/term/{q}")]
         public HttpResponseMessage GetByTerm(string q)
         {
@@ -36,6 +42,7 @@ namespace ControlCollection.API.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
+        //Método para cadastro de um item.
         [HttpPost]
         [Route("items")]
         public HttpResponseMessage Create(ItemCollection item)
@@ -53,6 +60,7 @@ namespace ControlCollection.API.Controllers
             }
         }
 
+        //Método para edição de um item.
         [HttpPut]
         [Route("items")]
         public HttpResponseMessage Edit(ItemCollection item)
@@ -70,6 +78,7 @@ namespace ControlCollection.API.Controllers
             }
         }
 
+        //Método para apagar um item.
         [HttpDelete]
         [Route("items/{id}")]
         public HttpResponseMessage Delete(string id)

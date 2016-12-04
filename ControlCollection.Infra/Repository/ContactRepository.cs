@@ -5,6 +5,7 @@ using System.Linq;
 
 namespace ControlCollection.Infra.Repository
 {
+    //Classe repositório que implementa a interface do domínio
     public class ContactRepository : IContactRepository
     {
         public List<Contact> GetAll()

@@ -11,24 +11,31 @@ using System.Web.Http.Cors;
 
 namespace ControlCollection.API.Controllers
 {
+    //Habilitando Cors e Personalização de rotas
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("api")]
     public class ContactController : ApiController
     {
         private readonly IContactRepository _ct;
+
+        //Implementação da injeção de dependência
         public ContactController(IContactRepository ct)
         {
             this._ct = ct;
         }
 
+        //Método de consulta a todos os dados.
+        [HttpGet]
         [Route("contacts")]
-        public HttpResponseMessage GetAllItems()
+        public HttpResponseMessage GetAllI()
         {
             var result = _ct.GetAll();
 
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
+        //Método de consulta por palavra-chave.
+        [HttpGet]
         [Route("contacts/term/{q}")]
         public HttpResponseMessage GetByTerm(string q)
         {
@@ -37,6 +44,7 @@ namespace ControlCollection.API.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
+        //Método para cadastro de um contato.
         [HttpPost]
         [Route("contacts")]
         public HttpResponseMessage Create(Contact contact)
@@ -54,6 +62,7 @@ namespace ControlCollection.API.Controllers
             }
         }
 
+        //Método para edição de um contato.
         [HttpPut]
         [Route("contacts")]
         public HttpResponseMessage Edit(Contact contact)
@@ -71,6 +80,7 @@ namespace ControlCollection.API.Controllers
             }
         }
 
+        //Método para apagar um contato.
         [HttpDelete]
         [Route("contacts/{id}")]
         public HttpResponseMessage Delete(string id)

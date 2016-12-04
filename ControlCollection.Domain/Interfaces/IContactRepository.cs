@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ControlCollection.Domain
 {
+    //Interface com a declaração dos métodos para o repositório
     public interface IContactRepository
     {
         List<Contact> GetAll();

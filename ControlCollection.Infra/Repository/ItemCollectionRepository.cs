@@ -8,6 +8,7 @@ namespace ControlCollection.Infra.Repository
 {
     public class ItemCollectionRepository : IItemCollectionRepository
     {
+        //Classe repositório que implementa a interface do domínio
         public List<ItemCollection> GetAll()
         {
             var Result = ConnElastic.EsClient().Search<ItemCollection>(s => s.Index("basecollection").Type("itemcollection"));
@@ -32,9 +33,9 @@ namespace ControlCollection.Infra.Repository
             {
                 ConnElastic.EsClient().Index(item, i => i.Index("basecollection").Type("itemcollection").Id(item.Id).Refresh());
             }
-            catch
+            catch(Exception e)
             {
-                throw new Exception("Houve um erro ao tentar inserir esse item");
+                e.GetBaseException();
             }
         }
 
@@ -56,9 +57,9 @@ namespace ControlCollection.Infra.Repository
 
                 }).Refresh());
             }
-            catch
+            catch(Exception e)
             {
-                throw new Exception("Não foi possivel alterar esse item");
+                e.GetBaseException();
             }
         }
 
@@ -68,9 +69,9 @@ namespace ControlCollection.Infra.Repository
             {
                 ConnElastic.EsClient().Delete<ItemCollection>(q, p => p.Index("basecollection").Type("itemcollection"));
             }
-            catch
+            catch(Exception e)
             {
-                throw new Exception("Não foi possivel remover esse item");
+                e.GetBaseException();
             }
         }
 
