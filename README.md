@@ -17,4 +17,4 @@
 * /contact/ <- nome do "tipo/tabela" para armazenar os contatos
 * /itemcollection/ <- nome do "tipo/tabela" para armazenar os itens da coleção
 
-* Para injeção de dependência está sendo utilizado o Framework - Simple Injector
+* Para inversão de controle e injeção de dependência está sendo utilizado o Framework - Simple Injector
