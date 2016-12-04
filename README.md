@@ -3,7 +3,8 @@
 
 * Abaixo o código para a criação do "indice" e do "tipo" no elasticsearch
 
-/basecollection/ <- nome do indice/base de dados
+* /basecollection/ <- nome do indice/base de dados
+
 "settings": {
     "index": {
       "number_of_shards": 3,
