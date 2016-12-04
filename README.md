@@ -8,9 +8,11 @@
 "settings": {
     "index": {
       "number_of_shards": 3,
-      "number_of_replicas": 0 <- Como a instalação é feita em uma maquina local não é possível gerar réplicas.
+      "number_of_replicas": 0 
     }
 }
+
+* Como a instalação é feita em uma maquina local não é possível gerar réplicas.
 
 * /contact/ <- nome do "tipo/tabela" para armazenar os contatos
 * /itemcollection/ <- nome do "tipo/tabela" para armazenar os itens da coleção
