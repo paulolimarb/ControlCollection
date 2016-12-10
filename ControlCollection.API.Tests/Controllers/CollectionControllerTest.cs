@@ -31,18 +31,17 @@ namespace ControlCollection.API.Tests.Controllers
 
 
         [TestMethod]
-        public void GetAllContacts()
+        public void GetAllItems()
         {
             // Arrange
-            //var product = new Contact { Id = "xxxxxx", Name = "Paulo Lima", Email = "paulolima@gmail.com",  Phone = "21987303169" };
-            
-            //var controller = new IContactRepository();
+            var Item = new ItemCollection { Id = "xxxxxx", Name = "Sonho Grande", Author = "Cristiane", Type = "Livro", Location = "BHS5" };
 
-            
-            //var result = controller.GetAllI();
+            //var controller = new CollectionController();
+                        
+            //var result = controller.GetAll();
 
             //// Assert
-            //Assert.AreSame(product, result);
+            //Assert.AreSame(, result);
         }
 
 
