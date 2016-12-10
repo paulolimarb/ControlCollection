@@ -154,7 +154,6 @@
     <Content Include="Content\lib\angular\angular.js" />
     <Content Include="Content\lib\jquery\jquery-min.js" />
     <Content Include="Content\lib\jquery\jquery.js" />
-    <Content Include="Content\teste.html" />
     <Content Include="Content\view\listcollections.html" />
     <Content Include="Content\view\listcontacts.html" />
     <Content Include="Content\view\modalcancelcontact.html" />
