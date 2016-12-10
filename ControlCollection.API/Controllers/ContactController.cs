@@ -6,8 +6,9 @@ using System.Web.Http.Cors;
 namespace ControlCollection.API.Controllers
 {
     //Habilitando Cors e Personalização de rotas
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    
     [RoutePrefix("api")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ContactController : ApiController
     {
         private readonly IContactRepository _ct;
@@ -30,13 +31,23 @@ namespace ControlCollection.API.Controllers
 
         //Método de consulta por palavra-chave.
         [HttpGet]
-        [Route("contacts/term/{q}")]
+        [Route("contacts/{q}")]
         public IHttpActionResult GetByTerm(string q)
         {
             var result = _ct.GetByTerm(q);
 
             return Content(HttpStatusCode.OK, result);
         }
+
+        [HttpGet]
+        [Route("contacts/unique/{q}")]
+        public IHttpActionResult GetById(string q)
+        {
+            var result = _ct.GetById(q);
+
+            return Content(HttpStatusCode.OK, result);
+        }
+
 
         //Método para cadastro de um contato.
         [HttpPost]
@@ -81,6 +92,9 @@ namespace ControlCollection.API.Controllers
         {
             if (id == null)
                 return Content(HttpStatusCode.BadRequest, "O contato que você quer apagar não foi informado.");
+            if(id == "undefined")
+                return Content(HttpStatusCode.BadRequest, "O contato que você quer apagar não foi informado.");
+
             try
             {
                 _ct.Delete(id);

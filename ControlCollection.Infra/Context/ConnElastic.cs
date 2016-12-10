@@ -24,6 +24,19 @@ namespace ControlCollection.Infra
             ConnSettings = new ConnectionSettings(ConnPool);
             elasticClient = new ElasticClient(ConnSettings);
 
+            //var response = EsClient().Map<object>(d => d
+            //.Index("basecollection")
+            //.Type("contact")
+            //.Properties(props => props
+            //    .String(s => s
+            //    .Name("name"))
+            //    .Completion(c => c
+            //        .Name("suggest")                    
+            //        .SearchAnalyzer("simple")
+            //        .Payloads())));
+            ////.IndexAnalyzer("simple")
+
+            
 
             return elasticClient;
         }

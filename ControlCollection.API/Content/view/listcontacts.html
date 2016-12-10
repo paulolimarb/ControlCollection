@@ -1,0 +1,43 @@
+<div class="row">
+<div class="jumbotron">
+<div class="row">			
+	<div class="col-lg-6">
+		<div class="input-group">
+			<input type="text" class="form-control" name="q" ng-model="q" placeholder="Pesquisar contatos">
+			<span class="input-group-btn">							
+				<button type="submit" class="btn btn-default" ng-click="getByTerm(q);" >Pesquisar</button>
+			</span>
+		</div>
+	</div>
+	<div class="col-lg-6">		
+		<button type="button" class="btn btn-primary block pull-right" data-toggle="modal" id="newContact" ng-click="clean(contacts); desactOrder();" data-target="#modalContact">Novo Contato</button>
+	</div>
+</div>
+		</br>
+		<table ng-show="contacts.length > 0" class="table table-striped">
+			<tr>
+				<th><a href="" ng-click="orderCol('name')">Nome</a></th>
+				<th><a href="" ng-click="orderCol('email')">E-mail</a></th>
+				<th><a href="" ng-click="orderCol('phone')">Telefone</a></th>
+				<th>Ação</th>
+                <th></th>
+			</tr>
+			<tr ng-repeat="contact in contacts | orderBy:order:directOrder">				
+				<td>{{contact.name}}</td>
+				<td>{{contact.email}}</td>
+				<td>{{contact.phone}}</td>
+				<td>									<!--Verificar se tem como saber de onde veio o click (Editar ou Novo contato)-->					
+					<button type="button" class="btn btn-warning" data-toggle="modal" id="edit" ng-click="vObject(contact)" data-target="#modalContact"  >Editar</button>
+					
+				</td>
+                <td>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" ng-click="vObject(contact)" data-target="#modalCancelContact">Excluir</button>
+                </td>
+			</tr>
+		</table>
+		<hr/>
+		
+	</div>
+</div>
+<div ng-include="'view/modalregcontact.html'"></div>
+<div ng-include="'view/modalcancelcontact.html'"></div>

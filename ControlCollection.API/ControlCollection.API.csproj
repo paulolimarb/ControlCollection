@@ -43,6 +43,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Elasticsearch.Net, Version=2.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Elasticsearch.Net.2.5.0\lib\net46\Elasticsearch.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -76,6 +80,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Nest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <HintPath>..\packages\NEST.2.5.0\lib\net46\Nest.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -130,6 +138,35 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\css\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\css\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\css\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\index.html" />
+    <Content Include="Content\js\app.js" />
+    <Content Include="Content\js\config\routeConfig.js" />
+    <Content Include="Content\js\controllers\collectionCtrl.js" />
+    <Content Include="Content\js\controllers\contactCtrl.js" />
+    <Content Include="Content\js\script.js" />
+    <Content Include="Content\js\services\collectionsService.js" />
+    <Content Include="Content\js\services\contactsService.js" />
+    <Content Include="Content\js\value\configValue.js" />
+    <Content Include="Content\lib\angular\angular-locale_pt-br.js" />
+    <Content Include="Content\lib\angular\angular-messages.js" />
+    <Content Include="Content\lib\angular\angular-route.js" />
+    <Content Include="Content\lib\angular\angular.js" />
+    <Content Include="Content\lib\jquery\jquery-min.js" />
+    <Content Include="Content\lib\jquery\jquery.js" />
+    <Content Include="Content\teste.html" />
+    <Content Include="Content\view\listcollections.html" />
+    <Content Include="Content\view\listcontacts.html" />
+    <Content Include="Content\view\modalcancelcontact.html" />
+    <Content Include="Content\view\modalcancelitem.html" />
+    <Content Include="Content\view\modalcontactdetail.html" />
+    <Content Include="Content\view\modalregcontact.html" />
+    <Content Include="Content\view\modalregitem.html" />
+    <Content Include="Content\view\modalregloan.html" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -147,6 +184,10 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\css\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\css\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\css\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\css\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -156,6 +197,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\js\directives\" />
+    <Folder Include="Content\js\filters\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ControlCollection.Domain\ControlCollection.Domain.csproj">

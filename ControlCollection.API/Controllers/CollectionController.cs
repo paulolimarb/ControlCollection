@@ -32,7 +32,7 @@ namespace ControlCollection.API.Controllers
 
         //Método de consulta por palavra-chave.
         [HttpGet]
-        [Route("items/term/{q}")]
+        [Route("items/{q}")]
         public IHttpActionResult GetByTerm(string q)
         {
             var result = _ic.GetByTerm(q);
@@ -44,7 +44,7 @@ namespace ControlCollection.API.Controllers
         [HttpPost]
         [Route("items")]
         public IHttpActionResult Create(ItemCollection item)
-        {
+        {   
             if (item == null)
                 return Content(HttpStatusCode.BadRequest, "O item que você quer inserir está vazio.");
             try
@@ -75,6 +75,25 @@ namespace ControlCollection.API.Controllers
                 return Content(HttpStatusCode.InternalServerError, "Falha ao editar item.");
             }
         }
+
+        //Método para alteração do status do item para emprestado.
+        [HttpPut]
+        [Route("items/loan")]
+        public IHttpActionResult Loan(ItemCollection loan)
+        {
+            if (loan == null)
+                return Content(HttpStatusCode.BadRequest, "O item que você quer emprestar está vazio.");
+            try
+            {
+                _ic.Loan (loan);
+                return Content(HttpStatusCode.OK, "A informação de emprestimo foi inserida.");
+            }
+            catch
+            {
+                return Content(HttpStatusCode.InternalServerError, "Falha ao inserir as informações.");
+            }
+        }
+
 
         //Método para apagar um item.
         [HttpDelete]

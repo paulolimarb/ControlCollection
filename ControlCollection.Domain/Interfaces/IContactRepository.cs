@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+
 
 namespace ControlCollection.Domain
 {
@@ -11,6 +8,13 @@ namespace ControlCollection.Domain
     {
         List<Contact> GetAll();
         List<Contact> GetByTerm(string q);
+
+        Contact GetById(string q);
+        //List<Nest.IHit<Contact>> GetById(string q);
+        //List<Contact> GetById(string q);
+        //IEnumerable<Contact> GetById(string q);
+
+
         void Create(Contact ct);
         void Edit(Contact ct);
         void Delete(string q);

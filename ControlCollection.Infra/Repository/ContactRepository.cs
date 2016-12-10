@@ -10,9 +10,15 @@ namespace ControlCollection.Infra.Repository
     {
         public List<Contact> GetAll()
         {
-            var Result = ConnElastic.EsClient().Search<Contact>(s => s.Index("basecollection").Type("contact"));
+            var response = ConnElastic.EsClient().Search<Contact>(s => s.Index("basecollection").Type("contact"));
 
-            return Result.Documents.ToList();
+            var result = response.Hits.Select(h =>
+            {
+                h.Source.Id = h.Id;
+                return h.Source;
+            }).ToList();
+
+            return result;
         }
 
         public List<Contact> GetByTerm(string q)
@@ -26,11 +32,38 @@ namespace ControlCollection.Infra.Repository
             return Result.Documents.ToList();
         }
 
+        public Contact GetById(string q)
+        {   //List<Nest.IHit<Contact>>
+            var result = ConnElastic.EsClient().Search<Contact>(s => s
+            .Index("basecollection")
+            .Type("contact")).Hits.ToList();
+            // Hits.Where(p => p.Source.Id.Contains(q)).ToList(); // Select(h => { h.Source.Id = q; return h.Source; }).ToList();
+
+            var ob = new Contact();
+            
+            for (int i = 0; i < result.Count; i++) { 
+                if(result[i].Id == q) { 
+                   ob = result[i].Source;
+                    return ob;
+                }
+
+            }
+            //var result = response.Hits.Select(h =>
+            //{
+            //    h.Source.Id = q;
+            //    return h.Source;
+            //}).ToList();
+
+
+            return null;
+        }
+
+
         public void Create(Contact ct)
         {
             try
             {
-               ConnElastic.EsClient().Index(ct, i => i.Index("basecollection").Type("contact").Id(ct.Id).Refresh());
+               ConnElastic.EsClient().Index(ct, i => i.Index("basecollection").Type("contact").Refresh());
             }
             catch
             {
@@ -70,5 +103,7 @@ namespace ControlCollection.Infra.Repository
                 throw new Exception("Não foi possivel remover esse contato");
             }
         }
+
+
     }
 }

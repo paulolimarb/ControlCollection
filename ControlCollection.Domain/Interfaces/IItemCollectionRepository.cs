@@ -13,6 +13,7 @@ namespace ControlCollection.Domain.Interfaces
         List<ItemCollection> GetByTerm(string q);
         void Create(ItemCollection ct);
         void Edit(ItemCollection ct);
+        void Loan(ItemCollection ct);
         void Delete(string q);
     }
 }
