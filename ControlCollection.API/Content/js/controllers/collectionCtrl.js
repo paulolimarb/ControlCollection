@@ -32,6 +32,8 @@ angular.module("controlCollection").controller("collectionCtrl", function($scope
         $scope.filltip = undefined;
     }
 
+    
+
 
 
     $scope.vObjectItem = function(item) { 
@@ -100,7 +102,14 @@ angular.module("controlCollection").controller("collectionCtrl", function($scope
     };
 
     $scope.removeRow = function (idx) {
-        $scope.products.splice(idx, 1);
+        console.log(idx);
+        $scope.collections.splice(idx, 1);
+    };
+
+    $scope.indexRow = function(idx){
+
+        $scope.numRow = idx;
+
     };
 
     $scope.deleteItem = function(id){

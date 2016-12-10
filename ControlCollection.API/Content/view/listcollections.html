@@ -57,9 +57,9 @@
                 <td>{{item.status}}</td>
 
                 <td>
-
-                    <button type="button" class="btn btn-success" data-toggle="modal" ng-show="item.idContact == 0" ng-click="getByContact(); vObjectItem(item)" data-target="#modalLoan">Emprestar</button>
-                    <button type="button" class="btn btn-default" data-toggle="modal" ng-show="item.idContact != 0" ng-click="getContactId(item.idContact)" data-target="#modalDetail">Contato</button>
+                    
+                    <button type="button" class="btn btn-success" data-toggle="modal" ng-show="item.idContact == 0 || item.idContact == null " ng-click="getByContact(); vObjectItem(item)" data-target="#modalLoan">Emprestar</button>
+                    <button type="button" class="btn btn-default" data-toggle="modal" ng-show="item.status != 'Disponível'" ng-click="getContactId(item.idContact)" data-target="#modalDetail">Contato</button>
                     
                 </td>
 
@@ -67,7 +67,7 @@
                     <button type="button" class="btn btn-warning" data-toggle="modal" id="edit" ng-click="vObjectItem(item)" data-target="#modalItem">Editar</button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" ng-click="vObjectItem(item)" data-target="#modalCancelItem">Excluir</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" ng-click="vObjectItem(item); indexRow($index);" data-target="#modalCancelItem">Excluir</button>
                 </td>
 
             </tr>

@@ -38,6 +38,18 @@ angular.module("controlCollection").controller("contactCtrl", function($scope,  
 
     }
 
+    $scope.removeRowCont = function (idx) {
+        
+        $scope.contacts.splice(idx, 1);
+    };
+
+    $scope.indexRowCont = function (idx) {
+
+        $scope.numRowCont = idx;
+
+    };
+
+
     $scope.orderCol = function (field) {
         $scope.order = field;
         $scope.directOrder = !$scope.directOrder;
