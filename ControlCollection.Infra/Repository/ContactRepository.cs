@@ -33,11 +33,10 @@ namespace ControlCollection.Infra.Repository
         }
 
         public Contact GetById(string q)
-        {   //List<Nest.IHit<Contact>>
+        {
             var result = ConnElastic.EsClient().Search<Contact>(s => s
             .Index("basecollection")
-            .Type("contact")).Hits.ToList();
-            // Hits.Where(p => p.Source.Id.Contains(q)).ToList(); // Select(h => { h.Source.Id = q; return h.Source; }).ToList();
+            .Type("contact")).Hits.ToList();            
 
             var ob = new Contact();
             
@@ -46,15 +45,7 @@ namespace ControlCollection.Infra.Repository
                    ob = result[i].Source;
                     return ob;
                 }
-
             }
-            //var result = response.Hits.Select(h =>
-            //{
-            //    h.Source.Id = q;
-            //    return h.Source;
-            //}).ToList();
-
-
             return null;
         }
 

@@ -91,11 +91,6 @@ namespace ControlCollection.Infra.Repository
                 e.GetBaseException();
             }
         }
-
-
-
-
-
         public void Delete(string q)
         {
             try
