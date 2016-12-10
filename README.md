@@ -18,3 +18,5 @@
 * /itemcollection/ <- nome do "tipo/tabela" para armazenar os itens da coleção
 
 * Para inversão de controle e injeção de dependência está sendo utilizado o Framework - Simple Injector
+
+* Os arquivos HTML estão na pasta "content"
