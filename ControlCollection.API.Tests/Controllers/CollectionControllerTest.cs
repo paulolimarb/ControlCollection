@@ -30,5 +30,21 @@ namespace ControlCollection.API.Tests.Controllers
         }
 
 
+        [TestMethod]
+        public void GetAllContacts()
+        {
+            // Arrange
+            //var product = new Contact { Id = "xxxxxx", Name = "Paulo Lima", Email = "paulolima@gmail.com",  Phone = "21987303169" };
+            
+            //var controller = new IContactRepository();
+
+            
+            //var result = controller.GetAllI();
+
+            //// Assert
+            //Assert.AreSame(product, result);
+        }
+
+
     }
 }
