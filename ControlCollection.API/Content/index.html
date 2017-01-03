@@ -1,60 +1,62 @@
 ﻿
-<html ng-app="controlCollection">
-    
-    <head>
-        <title></title>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-        <link type="text/css" href="css/style.css" rel="stylesheet">
-        <link type="text/css" href="css/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+<html data-ng-app="controlCollection">
 
-        <script src="lib/jquery/jquery.js"></script>
-        <script src="js/script.js"></script>
-        <script src="css/bootstrap/js/bootstrap.js"></script> 
-       
-        <!--Lib-framework-->
-        <script src="lib/angular/angular.js"></script>
-        <script src="lib/angular/angular-route.js"></script>
-        <script src="lib/angular/angular-messages.js"></script>
-        <!--<script src="lib/angular/angular-locale_pt-br.js"></script>-->
-        <script src="js/app.js"></script>
-        <!--Configurações e Rotas-->
-        <script src="js/config/routeConfig.js"></script>
-        <script src="js/value/configValue.js"></script>
-        <!--Controllers-->
-        <script src="js/controllers/collectionCtrl.js"></script>
-        <script src="js/controllers/contactCtrl.js"></script>
-        <!--Serviços-->
-        <script src="js/services/collectionsService.js"></script>
-        <script src="js/services/contactsService.js"></script>
-        
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link type="text/css" href="css/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="css/style.css" rel="stylesheet">
 
-    </head>
-    <body>
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
+    <script src="lib/jquery/jquery-min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="css/bootstrap/js/bootstrap.js"></script>
 
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Controle de Coleção</a>
-                </div>
+    <!--Libs-framework-->
+    <script src="lib/angular/angular.min.js"></script>
+    <script src="lib/angular/angular-route.min.js"></script>
+    <script src="lib/angular/angular-messages.min.js"></script>
+    <script src="lib/angular/angular-animate.min.js"></script>
 
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#/listcollections">Lista de Itens <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#/listcontacts">Contatos</a></li>
-                 </ul>
+    <!--Projeto-->
+    <script src="js/app.js"></script>
 
+    <!--Controllers-->
+    <script src="js/controllers/collectionCtrl.js"></script>
+    <script src="js/controllers/contactCtrl.js"></script>
+
+    <!--Configurações-->
+    <script src="js/value/configValue.js"></script>
+
+    <!--Serviços-->
+    <script src="js/services/collectionService.js"></script>
+    <script src="js/services/contactService.js"></script>
+
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#/">Controle de Coleção</a>
             </div>
-            </nav>
-        
 
-        <div class="container" ng-view>
-
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#/collections">Lista de Itens <span class="sr-only">(current)</span></a></li>
+                <li><a href="#/contacts">Contatos</a></li>
+            </ul>
 
         </div>
+    </nav>
 
-    </body>
+
+    <div class="container" data-ng-view>
+
+
+    </div>
+
+</body>
 
 </html>

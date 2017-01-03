@@ -1,4 +1,4 @@
-angular.module("controlCollection").value("config",{
-baseUrl : "http://localhost:11466"
+angular.module('controlCollection').value("config", {
+    baseUrl : "http://localhost:11466"
 
 });

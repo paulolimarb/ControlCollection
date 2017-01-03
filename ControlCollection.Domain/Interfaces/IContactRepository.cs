@@ -9,7 +9,7 @@ namespace ControlCollection.Domain
         List<Contact> GetAll();
         List<Contact> GetByTerm(string q);
         Contact GetById(string q);
-        void Create(Contact ct);
+        Contact Create(Contact ct);
         void Edit(Contact ct);
         void Delete(string q);
     }

@@ -1,4 +1,6 @@
-﻿namespace ControlCollection.Domain
+﻿using Newtonsoft.Json;
+
+namespace ControlCollection.Domain
 {
     public class ItemCollection
     {
@@ -8,6 +10,7 @@
         public string Author { get; set; }
         public string Location { get; set; }
         public string Status { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Include)]
         public string IdContact { get; set; }
 
 

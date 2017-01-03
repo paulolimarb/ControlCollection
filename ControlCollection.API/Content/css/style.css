@@ -1,10 +1,9 @@
-#iditem{
-    display: none;
-
-}
-
 .jumbotron {
     
     text-align: center;
     margin-top: 70px;
+}
+
+h2{
+    margin-top: 65px;
 }

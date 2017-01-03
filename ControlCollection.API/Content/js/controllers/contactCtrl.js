@@ -1,63 +1,91 @@
-angular.module("controlCollection").controller("contactCtrl", function($scope,  contacts, contactAPI ){
+angular.module('contact', []).config(['$routeProvider', function ($routeProvider) {
+    $routeProvider
+        .when('/contacts', {
+            templateUrl: 'views/listcontacts.html',
+            controller: 'contactsCtrl',
+            controllerAs: 'contacts'
+        });
 
-    //Lista todos os contatos na tabela.
-    $scope.contacts = contacts.data;
+}]).controller('contactsCtrl', ['$filter','contactService', contactsCtrl])
 
-    $scope.vObject = function(contact) {    
-        $scope.contact = angular.copy(contact);
+function contactsCtrl($filter, contactService) {
+    
+    var vm = this;
+
+    //Limpa o objeto contato.
+    vm.clean = clean;
+    function clean() {
+        vm.contact = null;
     }
 
-    $scope.clean = function(contact){
-        $scope.contact = null;
+    //Lista todos os contatos.
+    contactService
+        .getContacts()
+        .then(function (response) {            
+            vm.contacts = response.data;            
+        })
+
+    //Busca os contatos por termo
+    vm.searchByTerm = searchByTerm;
+    function searchByTerm(q) {
+        contactService.getContactsByTerm(q)
+        .then(function (response) {
+            vm.contacts = response.data;
+        });
+    }
+        
+    //Adciona um novo contato.
+    vm.add = add;
+    function add(contact) {        
+        contactService.saveContact(contact)
+        .then(function (response) {
+            contact = response.data;
+            vm.contacts.push(angular.copy(contact));            
+            delete vm.contact;
+        });
     }
 
-    $scope.insertContact = function (contact) {
-                contactAPI.saveContacts(contact).success(function(data){
-                $scope.contacts.push(angular.copy(contact));                        
-                delete $scope.contact;		
-        });				
-    };  
+    //Copia os dados de um contato da lista para um objeto.
+    vm.vObject = vObject;
+    function vObject(contact) {
+        vm.contact = angular.copy(contact);
+    }
 
-    $scope.getByTerm = function (q) {  
-         
-                if(q !== undefined){
-                    contactAPI.getContactsByTerm(q).success(function(data){
-                    $scope.contacts = data;
-                    });	
+    //Salva os dados editados pelo usuario.
+    vm.edit = edit;
+    function edit(contact) {        
+        contactService.updateContact(contact)
+        .then(function (response) {
+            var contacts = vm.contacts.map(function (el, i) {
+                if (el.id === contact.id) {
+                    contact = response.data;                    
+                    return contact;
                 }
-                else
-                {
-                    $scope.contacts;
-                }   			
-    };
-
-    $scope.deleteContact = function (id) {
-        contactAPI.deleteContacts(id).success(function(data){
-            $scope.contacts;
+                return el;
+            });
+            vm.contacts = contacts;
         });
 
     }
 
-    $scope.removeRowCont = function (idx) {
-        
-        $scope.contacts.splice(idx, 1);
-    };
+    //Remove o contato da lista.
+    vm.remove = remove;
+    function remove(contact) {
+        contactService.removeContact(contact.id)
+        .then(function () {
+            var contactz = $filter('filter')(vm.contacts, { id: contact.id })[0];
 
-    $scope.indexRowCont = function (idx) {
-
-        $scope.numRowCont = idx;
-
-    };
-
-
-    $scope.orderCol = function (field) {
-        $scope.order = field;
-        $scope.directOrder = !$scope.directOrder;
-    };
-
-    $scope.desactOrder = function(){
-        $scope.order = null;
-        $scope.directOrder = null;
+            if (contactz) {
+                vm.contacts.splice(vm.contacts.indexOf(contactz), 1);
+            }
+        });
     }
 
-});
+    //Ordena as colunas do maior para o menor
+    vm.reverse = true;
+    vm.orderField = orderField
+    function orderField(field) {        
+        vm.predicate = field;
+        vm.reverse = !vm.reverse;
+    }
+}

@@ -1,0 +1,44 @@
+<div class="row">
+<div class="jumbotron">
+<div class="row">			
+	<div class="col-lg-6">
+		<div class="input-group">
+			<input type="text" class="form-control" name="q" data-ng-model="q" placeholder="Pesquisar contatos">
+			<span class="input-group-btn">							
+				<button type="submit" class="btn btn-default" data-ng-click="contacts.searchByTerm(q);" >Pesquisar</button>
+			</span>
+		</div>
+	</div>
+	<div class="col-lg-6">		
+		<button type="button" class="btn btn-primary block pull-right" data-toggle="modal" id="newContact" data-ng-click="contacts.clean(); desactOrder();" data-target="#modalContact">Novo Contato</button>
+	</div>
+</div>
+		</br>
+		<table  class="table table-striped">
+			<tr>
+				<th><a href="" data-ng-click="contacts.orderField('name')">Nome</a></th>
+				<th><a href="" data-ng-click="contacts.orderField('email')">E-mail</a></th>
+				<th><a href="" data-ng-click="contacts.orderField('phone')">Telefone</a></th>
+				<th>Ação</th>
+                <th></th>
+			</tr>
+			<tr data-ng-repeat="contact in contacts.contacts | orderBy: contacts.predicate: contacts.reverse">
+				<td>{{contact.name}}</td>
+				<td>{{contact.email}}</td>
+				<td>{{contact.phone}}</td>
+				<td>									
+					<button type="button" class="btn btn-warning" data-toggle="modal" id="edit" data-ng-click="contacts.vObject(contact);" data-target="#modalEditContact"  >Editar</button>
+					
+				</td>
+                <td>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-ng-click="contacts.vObject(contact);" data-target="#modalCancelContact">Excluir</button>
+                </td>
+			</tr>
+		</table>
+		<hr/>
+		
+	</div>
+</div>
+<div ng-include="'views/modalregcontact.html'"></div>
+<div ng-include="'views/modaleditcontact.html'"></div>
+<div ng-include="'views/modalcancelcontact.html'"></div>

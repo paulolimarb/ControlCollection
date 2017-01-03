@@ -49,8 +49,9 @@ namespace ControlCollection.API.Controllers
                 return Content(HttpStatusCode.BadRequest, "O item que você quer inserir está vazio.");
             try
             {
-                _ic.Create(item);
-                return Content(HttpStatusCode.OK,"O item foi inserido corretamente.");
+                var result = _ic.Create(item);
+                
+                return Content(HttpStatusCode.OK, result);
             }
             catch(Exception)
             {
@@ -68,32 +69,13 @@ namespace ControlCollection.API.Controllers
             try
             {
                 _ic.Edit(item);
-                return Content(HttpStatusCode.OK, "O item foi editado corretamente.");
+                return Content(HttpStatusCode.OK, item);
             }
             catch
             {
                 return Content(HttpStatusCode.InternalServerError, "Falha ao editar item.");
             }
         }
-
-        //Método para alteração do status do item para emprestado.
-        [HttpPut]
-        [Route("items/loan")]
-        public IHttpActionResult Loan(ItemCollection loan)
-        {
-            if (loan == null)
-                return Content(HttpStatusCode.BadRequest, "O item que você quer emprestar está vazio.");
-            try
-            {
-                _ic.Loan (loan);
-                return Content(HttpStatusCode.OK, "A informação de emprestimo foi inserida.");
-            }
-            catch
-            {
-                return Content(HttpStatusCode.InternalServerError, "Falha ao inserir as informações.");
-            }
-        }
-
 
         //Método para apagar um item.
         [HttpDelete]

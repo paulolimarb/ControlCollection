@@ -58,8 +58,8 @@ namespace ControlCollection.API.Controllers
                 return Content(HttpStatusCode.BadRequest, "O contato que você quer inserir está vazio.");
             try
             {
-                _ct.Create(contact);
-                return Content(HttpStatusCode.OK, "O contato foi inserido corretamente.");
+                var result = _ct.Create(contact);
+                return Content(HttpStatusCode.OK, result);
             }
             catch
             {
@@ -77,7 +77,7 @@ namespace ControlCollection.API.Controllers
             try
             {
                 _ct.Edit(contact);
-                return Content(HttpStatusCode.OK, "O contato foi editado corretamente.");
+                return Content(HttpStatusCode.OK, contact);
             }
             catch
             {

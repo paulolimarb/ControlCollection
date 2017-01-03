@@ -1,0 +1,30 @@
+<div class="modal fade" id="modalContact" tabindex="-1" role="dialog" aria-labelledby="label" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" >
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-ng-click="contacts.clean();"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="label">Cadastro de Contato</h4>
+      </div>
+      <div class="modal-body">
+        <form name="contacts.formContact">
+          <div class="form-group">
+            <label for="name" class="control-label">Nome</label>            
+            <input type="text" data-ng-model="contacts.contact.name" class="form-control" name="name">
+          </div>
+          <div class="form-group">
+            <label for="email" class="control-label">E-mail:</label>
+            <input type="text" data-ng-model="contacts.contact.email" class="form-control" name="email">
+          </div>
+          <div class="form-group">
+            <label for="phone" class="control-label">Telefone:</label>
+            <input type="text" data-ng-model="contacts.contact.phone" class="form-control" name="phone">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="saveCont" data-dismiss="modal" data-ng-click="contacts.clean();">Sair</button>
+        <button type="submit" class="btn btn-primary" data-dismiss="modal" data-ng-click="contacts.add(contacts.contact);">Salvar Contato</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -21,6 +21,7 @@ namespace ControlCollection.Infra.Repository
             return result;
         }
 
+        //Lista os dados que foram buscados por um termo.
         public List<Contact> GetByTerm(string q)
         {
             var Result = ConnElastic.EsClient().Search<Contact>(s => s
@@ -32,34 +33,36 @@ namespace ControlCollection.Infra.Repository
             return Result.Documents.ToList();
         }
 
+        //Recupera o contato com pelo id.
         public Contact GetById(string q)
         {
-            var result = ConnElastic.EsClient().Search<Contact>(s => s
-            .Index("basecollection")
-            .Type("contact")).Hits.ToList();            
+            var result = ConnElastic.EsClient().Get<Contact>(new Nest.DocumentPath<Contact>(q)
+                .Index("basecollection")
+                .Type("contact")).Source;
 
-            var ob = new Contact();
+            result.Id = q;
             
-            for (int i = 0; i < result.Count; i++) { 
-                if(result[i].Id == q) { 
-                   ob = result[i].Source;
-                    return ob;
-                }
-            }
-            return null;
+            return result;
         }
 
 
-        public void Create(Contact ct)
+        public Contact Create(Contact ct)
         {
             try
             {
-               ConnElastic.EsClient().Index(ct, i => i.Index("basecollection").Type("contact").Refresh());
+                var result = ConnElastic.EsClient().Index(ct, i => i.Index("basecollection").Type("contact").Refresh());
+
+                if (result.Created)
+                {
+                    ct.Id = result.Id;
+                    return ct;
+                }                
             }
             catch
             {
                 throw new Exception("Houve um erro ao tentar inserir esse contato");
             }
+            return null;
         }
 
         public void Edit(Contact ct)

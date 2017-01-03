@@ -34,17 +34,26 @@ namespace ControlCollection.Infra.Repository
             return result.Documents.ToList();
         }
 
-        public void Create(ItemCollection item)
+
+        public ItemCollection Create(ItemCollection item)
         {
             try
             {
-                item.IdContact = "0";
-                ConnElastic.EsClient().Index(item, i => i.Index("basecollection").Type("itemcollection").Refresh());
+                var result = ConnElastic.EsClient().Index(item, i => i.Index("basecollection").Type("itemcollection").Refresh());
+                
+                if(result.Created)
+                {
+                    item.Id = result.Id;
+                    return item;
+                }
+                
             }
             catch(Exception e)
             {
                 e.GetBaseException();
             }
+
+            return null;
         }
 
         public void Edit(ItemCollection item)
@@ -71,26 +80,7 @@ namespace ControlCollection.Infra.Repository
                 e.GetBaseException();
             }
         }
-
-        public void Loan(ItemCollection loan)
-        {
-            try
-            {
-                ConnElastic.EsClient().Update<ItemCollection, dynamic>(new Nest.DocumentPath<ItemCollection>(loan.Id), q => q
-                .Index("basecollection")
-                .Type("itemcollection")
-                .Doc(new ItemCollection
-                {                    
-                    Status = loan.Status,
-                    IdContact = loan.IdContact
-
-                }).Refresh());
-            }
-            catch (Exception e)
-            {
-                e.GetBaseException();
-            }
-        }
+        
         public void Delete(string q)
         {
             try

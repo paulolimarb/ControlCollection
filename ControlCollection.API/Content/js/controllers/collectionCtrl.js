@@ -1,138 +1,136 @@
-angular.module("controlCollection").controller("collectionCtrl", function($scope,  collections, collectionAPI, contactAPI){
+angular.module('collection', []).config(['$routeProvider', function ($routeProvider) {
+    $routeProvider
+        .when('/collections', {
+            templateUrl: 'views/listcollections.html',
+            controller: 'collectionsCtrl',
+            controllerAs: 'collections'
+        });
 
-  
 
-    //Lista todos os itens na tabela.
-    $scope.collections = collections.data;
-    
+}]).controller('collectionsCtrl', ['$filter','collectionService', 'contactService', collectionCtrl])
 
-    $scope.types = [
+function collectionCtrl($filter,collectionService, contactService) {
+    var vm = this;
+
+    vm.types = [
 				{nameType: "Livro"},
 				{nameType: "CD"},
                 {nameType: "DVD"},
 			];
     
-    $scope.optionStatus = [
+    vm.optionStatus = [
 				{optionName: "Disponível"}				
 			];
 
-    $scope.optionLoan = [
+    vm.optionLoan = [
 				{optionName: "Emprestado"}				
     ];
 
-    $scope.optionVarious = [
+    vm.optionVarious = [
             { optionName: "Emprestado" },
             { optionName: "Disponível" }
     ];
 
-    ;
 
-    $scope.resetFilter = function () {        
-        $scope.fillop = undefined;
-        $scope.filltip = undefined;
+    vm.clean = clean;
+    function clean() {
+        vm.item = null;
     }
 
-    
+    //Lista todos os itens.
+    collectionService
+        .getItems()
+        .then(function (response) {            
+            vm.items = response.data;
 
+        })
 
+    //Busca os itens por termo
+    vm.searchByTerm = searchByTerm;
+    function searchByTerm(q) {
+        collectionService.getItemsByTerm(q)
+        .then(function (response) {
+            vm.items = response.data;
+        });
+     }
 
-    $scope.vObjectItem = function(item) { 
-
-        $scope.item = angular.copy(item);
+    //Adciona um novo item.
+    vm.add = add;
+    function add(item) {        
+        collectionService.saveItem(item)
+        .then(function (response) {
+            item = response.data
+            vm.items.push(angular.copy(item));
+            delete vm.item;
+        });
     }
 
-    
+    //Copia os dados da lista para um objeto.
+    vm.vObject = vObject;
+    function vObject(item) {        
+        vm.item = angular.copy(item);
+    }
 
-    $scope.cleanItem = function(){
-        $scope.item = null;
-    }    
+    //Salva os dados editados pelo usuario.
+    vm.edit = edit;
+    function edit(item) {
+        collectionService.updateItem(item)
+        .then(function (response) {
+            var items = vm.items.map(function (el, i) {
+                if (el.id === item.id) {
+                    item = response.data;                    
 
-    $scope.insertItem = function (item) {
-                
-                collectionAPI.saveItem(item).success(function(data){
-                $scope.collections.push(angular.copy(item));              
-                
-                });
-                delete $scope.item;
-    };  
-
-    $scope.getByTerm = function (q) {  
-         
-                if(q !== undefined){
-                    collectionAPI.getItemsByTerm(q).success(function(data){
-                    $scope.collections = data;
-                    });	
+                    return item;
                 }
-                else
-                {
-                    $scope.collections;
-                }   			
-    };
-
-        $scope.getByContact = function () {
-                
-                    contactAPI.getContacts().success(function(data){
-                    $scope.contacts = data;
-                    
-                    });	
-        };
-        
-        $scope.getContactId = function (q) {
- 
-            if (q !== undefined) {
-                    contactAPI.getContactsByID(q).success(function (data) {
-                        $scope.unique = data;
-                        console.log($scope.unique);
-                });
-            }
-            else {
-                $scope.contacts;
-            }
-        };
-
-    
-
-
-    $scope.loanItem = function(loan){
-        console.log(loan);
-        collectionAPI.loanItem(loan).success(function(data){
-            $scope.collections;
+                return el;
+            });
+            vm.items = items;
         });
+    }
 
-    };
+    //Remove o item da lista.
+    vm.remove = remove;
+    function remove(item) {
+        collectionService.removeItem(item.id)
+        .then(function () {
 
-    $scope.removeRow = function (idx) {
-        console.log(idx);
-        $scope.collections.splice(idx, 1);
-    };
-
-    $scope.indexRow = function(idx){
-
-        $scope.numRow = idx;
-
-    };
-
-    $scope.deleteItem = function(id){
-        collectionAPI.deleteItem(id).success(function (data) {
-            $scope.collections = data;
+            var itemz = $filter('filter')(vm.items, { id: item.id })[0];
+            if (itemz) {
+                vm.items.splice(vm.items.indexOf(itemz), 1);
+            }
         });
 
     }
 
-    $scope.orderCol = function (field) {
-        $scope.order = field;
-        $scope.directOrder = !$scope.directOrder;
-    };
+    //Lista todos os contatos cadastrados para ser emprestado.
+    vm.getContacts = getContacts;
+    function getContacts() {
+        contactService.getContacts()
+        .then(function (response) {
+            vm.contacts = response.data;
+        })
+    }
+    //Exibe o contato para qual o item foi emprestado.
+    vm.getContactById = getContactById;
+    function getContactById(q) {        
+        contactService.getContactById(q)
+        .then(function (response) {
+            vm.contact = response.data;
+        });
 
-    $scope.desactOrder = function(){
-        $scope.order = null;
-        $scope.directOrder = null;
-    };
+    }
 
+    vm.reverse = true;
+    vm.orderField = orderField
+    function orderField(field) {        
+        vm.predicate = field;
+        vm.reverse = !vm.reverse;
+    }
 
+    vm.resetFilter = resetFilter;
+    function resetFilter() {
+            vm.fillop = undefined;
+            vm.filltip = undefined;
+    }
 
-
-
-    
-
-});
+}

@@ -1,0 +1,40 @@
+﻿<div class="modal fade" id="modalEditItem" tabindex="-1" role="dialog" aria-labelledby="label">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="label">Editar Item</h4>
+            </div>
+            <div class="modal-body">
+                <form id="registerItem">
+                    <div class="form-group">
+                        <label for="name" class="control-label">Nome:</label>
+                        <input type="text" data-ng-model="collections.item.name" class="form-control" id="name">
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" data-ng-model="collections.item.type" id="type" data-ng-options="type.nameType as type.nameType for type in collections.types ">
+                            <option value="">Selecione o tipo do item</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="author" class="control-label">Autor:</label>
+                        <input type="text" data-ng-model="collections.item.author" class="form-control" id="author">
+                    </div>
+                    <div class="form-group">
+                        <label for="location" class="control-label">Local:</label>
+                        <input type="text" data-ng-model="collections.item.location" class="form-control" id="location">
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" data-ng-model="collections.item.status" id="status" data-ng-options="option.optionName as option.optionName for option in collections.optionStatus">
+                            <option value="">Selecione o status</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="saveItem" data-dismiss="modal" data-ng-click="collections.clean()">Sair</button>
+                <button type="submit" class="btn btn-primary" data-dismiss="modal" data-ng-click="collections.edit(collections.item);">Salvar Item</button>
+            </div>
+        </div>
+    </div>
+</div>
