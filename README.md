@@ -1,4 +1,12 @@
 # ControlCollection
+
+Atualização - 03/01/2017
+*Angular 1.6.
+*Mudança na estrura das controllers.
+*Implementação do ViewModel no angular.
+*Melhoria de performance no back-end.
+
+--------------------------
 * Api para gestão de coleções utilizando o elasticsearch como base de dados.
 
 * Abaixo o código para a criação do "indice" e do "tipo" no elasticsearch
